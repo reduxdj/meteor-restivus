@@ -60,4 +60,4 @@ getUserQuerySelector = (user) ->
   hashedToken = Accounts._hashLoginToken authToken.token
   Accounts._insertHashedLoginToken authenticatingUser._id, {hashedToken}
 
-  return {authToken: authToken.token, userId: authenticatingUser._id}
+  return {authToken: hashedToken, userId: authenticatingUser._id}

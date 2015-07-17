@@ -12,7 +12,7 @@ class @Restivus
         token: 'services.resume.loginTokens.hashedToken'
         user: ->
           if @request.headers['x-auth-token']
-            token = Accounts._hashLoginToken @request.headers['x-auth-token']
+            token = @request.headers['x-auth-token']
           userId: @request.headers['x-user-id']
           token: token
       onLoggedIn: -> {}
