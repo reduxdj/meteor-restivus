@@ -6,6 +6,9 @@
 ### See https://atmospherejs.com/nimble/restivus
 
 
+#Only changes here are a hashedToken is changed and enabled CORS, to work with mobile
+#auth solutions
+
 Restivus makes building REST APIs in Meteor 0.9.0+ easier than ever before! The package is inspired
 by [RestStop2][reststop2-docs] and [Collection API](https://github.com/crazytoad/meteor-collectionapi),
 and is built on top of [Simple JSON Routes][json-routes] to provide:

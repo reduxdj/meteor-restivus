@@ -11,15 +11,13 @@ class @Restivus
       auth:
         token: 'services.resume.loginTokens.hashedToken'
         user: ->
-          if @request.headers['x-auth-token']
-            token = @request.headers['x-auth-token']
           userId: @request.headers['x-user-id']
-          token: token
+          token: @request.headers['x-auth-token']
       onLoggedIn: -> {}
       onLoggedOut: -> {}
       defaultHeaders:
         'Content-Type': 'application/json'
-      enableCors: true
+      enableCors: false
 
     # Configure API with the given options
     _.extend @_config, options
