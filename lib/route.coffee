@@ -164,6 +164,7 @@ class @Route
     @returns False if authentication fails, and true otherwise
   ###
   _authAccepted: (endpointContext, endpoint) ->
+    console.log 'authRequired'
     if endpoint.authRequired
       @_authenticate endpointContext
     else true
@@ -177,20 +178,10 @@ class @Route
     @returns {Boolean} True if the authentication was successful
   ###
   _authenticate: (endpointContext) ->
-    # Get auth info
-    auth = @api._config.auth.user.call(endpointContext)
-
-    # Get the user from the database
-    if auth?.userId and auth?.token and not auth?.user
-      userSelector = {}
-      userSelector._id = auth.userId
-      userSelector[@api._config.auth.token] = auth.token
-      auth.user = Meteor.users.findOne userSelector
-
-    # Attach the user and their ID to the context if the authentication was successful
-    if auth?.user
-      endpointContext.user = auth.user
-      endpointContext.userId = auth.user._id
+    user = @api._config.auth.user.call(endpointContext)
+    if user
+      endpointContext.user = user
+      endpointContext.userId = user._id
       true
     else false
 
@@ -219,7 +210,6 @@ class @Route
     defaultHeaders = @_lowerCaseKeys @api._config.defaultHeaders
     headers = @_lowerCaseKeys headers
     headers = _.extend defaultHeaders, headers
-
     # Prepare JSON body for response when Content-Type indicates JSON type
     if headers['content-type'].match(/json|javascript/) isnt null
       if @api._config.prettyJson
@@ -233,7 +223,7 @@ class @Route
       response.write body
       response.end()
     if statusCode in [401, 403]
-      # Hackers can measure the response time to determine things like whether the 401 response was 
+      # Hackers can measure the response time to determine things like whether the 401 response was
       # caused by bad user id vs bad password.
       # In doing so, they can first scan for valid user ids regardless of valid passwords.
       # Delay by a random amount to reduce the ability for a hacker to determine the response time.

@@ -61,6 +61,7 @@ class @Restivus
         and all other route config options available. An `action` must be provided with the object.
   ###
   addRoute: (path, options, endpoints) ->
+    console.log 'path',path
     # Create a new route and add it to our list of existing routes
     route = new Route(this, path, options, endpoints)
     @_routes.push(route)

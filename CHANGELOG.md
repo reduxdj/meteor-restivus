@@ -1,8 +1,15 @@
 # Change Log
 
+## [v.0.8.3] - 2015-07-15
+- Rewrote authentication methods
+
+## [v.0.8.2] - 2015-07-15
+
+- Added Version Bump for my own package
+
 ## [v0.8.1] - 2015-07-07
 
-#### Added 
+#### Added
 - Default logout endpoint at `POST /api/logout`
 
 #### Deprecated
@@ -19,9 +26,9 @@ _Note: API-breaking changes are in **bold**_
 
 #### Added
 - Support [API versioning][versioning an api] via URL path
-- API configuration option for defining a default OPTIONS endpoint (used on 
+- API configuration option for defining a default OPTIONS endpoint (used on
   any route that doesn't define it's own OPTIONS endpoint): `defaultOptionsEndpoint`
-    
+
 #### Changed
 - **Export Restivus as a "class" instead of an object**
 - Replace Iron Router with [JSON Routes]
@@ -31,9 +38,9 @@ _Note: API-breaking changes are in **bold**_
   - `403`: Role permission errors
   - `405`: API method not found (but route exists)
 - Remove dependency on `useAuth` API config option for endpoint authentication ([#49][])
-  
+
 #### Deprecated
-- `useAuth` API config option (replaced with `useDefaultAuth` to better reflect it's purpose, which 
+- `useAuth` API config option (replaced with `useDefaultAuth` to better reflect it's purpose, which
   is to generate the default auth endpoints)
 
 #### Fixed
@@ -41,9 +48,9 @@ _Note: API-breaking changes are in **bold**_
   - Issue [#24][]: Interference with other routers
   - Issue [#35][]: App hangs on iOS
   - Issue [#43][]: Deployed app shows `iron:router` welcome screen
-- Issue [#91][]: Return a `401` error when auth info is not provided in endpoint requiring default 
-  auth (previously returned `500` error) 
-  
+- Issue [#91][]: Return a `401` error when auth info is not provided in endpoint requiring default
+  auth (previously returned `500` error)
+
 #### Removed
 - **`deleteAll` collection endpoint (it had the potential to be quite destructive - [#47][])**
 - **`Restivus.configure()` (configuration now available via Restivus constructor)**
@@ -61,16 +68,16 @@ _Note: API-breaking changes are in **bold**_
 
 #### Changed
 - Update default auth endpoints to match current Accounts token storage ([#79][])
-  - **_WARNING!_ All clients consuming a Restivus API _with the default authentication_ will need to 
+  - **_WARNING!_ All clients consuming a Restivus API _with the default authentication_ will need to
     reauthenticate after this update**
   - Login token is now stored as `hashedToken` instead of `token`
 - Return `401 Unauthorized` for failed authentication
 - When logging in with bad credentials, randomly delay the response ([#81][])
 - Declare dependency on `accounts-base` package
-  
+
 
 ## [v0.6.6] - 2015-05-25
-  
+
 #### Changed
 - Improve the Contributing Guidelines
   - Tighten up some conventions
@@ -85,20 +92,20 @@ _Note: API-breaking changes are in **bold**_
 #### Added
 - Include an endpoint's configuration options [in its context]
   (https://github.com/kahmali/meteor-restivus#thisendpointoption)
-- Allow [default response headers](https://github.com/kahmali/meteor-restivus#defaultheaders) to be 
+- Allow [default response headers](https://github.com/kahmali/meteor-restivus#defaultheaders) to be
   configured
 - Allow CORS to be disabled in API config (using [`enableCors`]
   (https://github.com/kahmali/meteor-restivus#enablecors) option)
     - Resolves Issue [#39][]
-    
+
 #### Changed
 - Default response Content-Type is now `application/json` instead of `text/json`
-  - This _shouldn't_ have any effect on existing APIs. Updating to match standard JSON type, 
+  - This _shouldn't_ have any effect on existing APIs. Updating to match standard JSON type,
     according to [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
 
 #### Fixed
 - Issue [#32][]: Prevent non-JSON response types from being wrapped in quotes
-  - This bug required clients to do additional parsing of non-JSON types (removing quotes and 
+  - This bug required clients to do additional parsing of non-JSON types (removing quotes and
     escaped characters)
 
 
