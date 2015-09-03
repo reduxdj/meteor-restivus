@@ -164,7 +164,6 @@ class @Route
     @returns False if authentication fails, and true otherwise
   ###
   _authAccepted: (endpointContext, endpoint) ->
-    console.log 'authRequired'
     if endpoint.authRequired
       @_authenticate endpointContext
     else true
